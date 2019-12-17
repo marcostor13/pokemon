@@ -1,0 +1,84 @@
+<header class="p-3 d-flex justify-content-between align-items-center">
+    <img src="https://assets.pokemon.com/assets/cms2/img/misc/gus/buttons/logo-pokemon-79x45.png" alt="Pokemon">
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 172 172"
+        style=" fill:#000000;">
+        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+            stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+            <path d="M0,172v-172h172v172z" fill="none"></path>
+            <g fill="#0f3a83">
+                <path
+                    d="M39.69231,0c-10.95673,0 -19.84615,8.88942 -19.84615,19.84615v132.30769c0,10.95673 8.88942,19.84615 19.84615,19.84615h92.61538c10.95673,0 19.84615,-8.88942 19.84615,-19.84615v-34.31731l-13.23077,11.57692v22.74038c0,3.64363 -2.97176,6.61538 -6.61538,6.61538h-92.61538c-3.64363,0 -6.61538,-2.97176 -6.61538,-6.61538v-132.30769c0,-3.64363 2.97176,-6.61538 6.61538,-6.61538h92.61538c3.64363,0 6.61538,2.97176 6.61538,6.61538v22.74038l13.23077,11.57692v-34.31731c0,-10.95673 -8.88942,-19.84615 -19.84615,-19.84615zM109.15385,42.79327c-1.65385,0.49099 -3.30769,2.17067 -3.30769,6.61538v16.74519h-39.69231c-3.64363,0 -6.61538,2.97176 -6.61538,6.61538v26.46154c0,3.64363 2.97176,6.61538 6.61538,6.61538h39.69231v16.53846c0,8.47596 6.61538,6.61538 6.61538,6.61538l49.61538,-43l-49.61538,-43c0,0 -1.65385,-0.69772 -3.30769,-0.20673z">
+                </path>
+            </g>
+        </g>
+    </svg>
+</header>
+
+<div id="container">
+    <ng-container *ngFor="let pokemon of pokemons" >
+        <div [class.left]="pokemon.left" [class.right]="pokemon.right" [class.centerLeft]="pokemon.center" *ngIf="pokemon.info" class="divPokemon d-flex justify-content-center flex-column align-items-center p-5">
+            <img src="{{pokemon.info.sprites.front_default}}" alt="{{pokemon.info.name}}">    
+            <h4 *ngIf="pokemon.info" class="text-capitalize">{{pokemon.name}}</h4>
+            <ul class="list-unstyled d-flex justify-content-between align-items-center">
+                <li *ngFor="let type of pokemon.info.types" class="text-capitalize ml-2">{{type.type.name}}</li>
+            </ul>
+        </div>    
+    </ng-container>
+</div>
+
+<nav class="p-3 d-flex align-items-center justify-content-between">
+    <input id="search" type="search" class="form-control col-8" placeholder="Busque por nombre">
+    <div id="searchResults"></div>
+    <button (click)="openModal();" class="col-4 ml-2">Type</button>
+</nav>
+
+
+<div *ngIf="informationPokemon" class="informationPokemon p-4">
+
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Description</label>
+        <p class="pr-2">{{description}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Height</label>
+        <p class="pr-2">{{height}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Weight</label>
+        <p class="pr-2">{{weight}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Gender</label>
+        <p class="pr-2">{{gender}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Generation</label>
+        <p class="pr-2">{{generation}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">        
+        <label>Effect</label>
+        <p class="pr-2 pl-2">{{effect}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Type</label>
+        <p class="pr-2 text-capitalize" *ngFor="let type of types">{{type.type.name}}</p>
+    </div>
+    <div class="w-100 d-flex justify-content-between align-items-center infoField">
+        <label>Next evolution</label>
+        <p class="pr-2">{{evolution}}</p>
+    </div>
+    
+
+</div>
+
+
+<div id="modal" *ngIf="modal">
+    <div class="content-modal d-flex align-items-center justify-content-center flex-column">
+        <h5>Types</h5>
+        <div class="d-flex flex-wrap justify-content-center align-items-center mt-5">
+            <div (click)="selectType('All')" class="p-2 ml-2 mt-2 types2">All Types</div>
+            <div (click)="selectType(type.name)" class="p-2 ml-2 mt-2 types" *ngFor="let type of typesPokemon">{{type.name}}</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,207 @@
+body, html{
+    max-width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+}
+
+
+//NAV
+
+nav{
+    margin-top: 250px;
+    position: relative;
+    input{
+        border: 0;
+        border-radius: 0;
+        border-bottom: 2px solid #0F3A83;        
+        color: #0F3A83;
+    }
+    #searchResults{
+        z-index: 3;
+        position: absolute;
+        top: 55px;
+        list-style-type: none;
+        background-color: #FBCB13;
+        color: #0F3A83;
+        min-width: 120px;        
+    }
+
+
+    button{
+        border: 0;
+        font-weight: 500;
+        font-size: 11pt;
+        color: #0F3A83;
+        background-color: #FBCB13;
+        border-radius: 8px;
+        min-height: 40px;
+    }
+}
+
+//INFO
+.informationPokemon{
+    z-index: 2;
+    position: relative;
+    .infoField{
+        label{
+            background-color: #0F3A83;
+            color: white;
+            padding: 14px;
+            margin: 0 !important;
+            min-width: 150px;
+        }
+        background-color: #FBCB13;
+    }
+}
+    
+
+//POKEMON
+
+#container{
+    position: relative;
+    max-width: 100vw;
+    min-width: 100vw;
+    overflow: hidden;
+    .divPokemon{
+        min-height: 300px;
+        max-width: 100vw;
+        position: fixed;
+        min-width: 100vw;
+    }
+    div{
+        h4{
+            font-weight: 900;
+            font-size: 20pt;
+            -webkit-text-fill-color: #FBCB13;
+            -webkit-text-stroke-color: #0F3A83;
+            -webkit-text-stroke-width: 1.8px; 
+        }
+        ul{
+            li{
+                font-weight: 500;
+                color: #0F3A83;
+            }
+        }
+    }
+}
+
+//MODAL
+
+#modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: rgba($color: #000000, $alpha: .7);
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .content-modal{
+        display: flex;
+        justify-content: center;
+        padding: 30px;
+        background-color: white;
+        min-width: 90vw;
+        min-height: 90vw;
+        border-radius: 10px;
+    }
+    .types{
+        background-color: #FBCB13;
+        border-radius: 8px;
+    }
+    .types2{
+        background-color: #0F3A83;
+        border-radius: 8px;
+        color: white;
+    }
+}
+
+
+//KEYFRAMES
+
+.left{
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+    animation-name: left;
+    animation-duration: 500ms;
+    left: -100% !important;
+}
+
+.right{
+    left: 100% !important;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+    animation-name: right;
+    animation-duration: 1ms;
+}
+
+.centerLeft{
+    left: 0;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+    animation-name: centerLeft;
+    animation-duration: 500ms;
+}
+
+.centerRight{
+    left: 0;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+    animation-name: centerRight;
+    animation-duration: 500ms;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;    
+  }
+}
+
+@keyframes left {
+  0% {
+    left: 0;
+
+  }
+  100% {
+    left: -100%;    
+  }
+}
+
+@keyframes right {
+  0% {
+    left: 0;
+
+  }
+  100% {
+    left: 100%;    
+  }
+}
+
+@keyframes centerLeft {
+  0%{
+    left: -100%;
+  }
+  100% {
+    left: 0;    
+  }
+}
+
+@keyframes centerRight {
+  0%{
+    left: 100%;
+  }
+  100% {
+    left: 0;    
+  }
+}
