@@ -65,9 +65,6 @@ export class HomeComponent implements OnInit {
   //POKEMONS
 
   getPokemons(){
-
-    console.log('iniciado');
-
     let data = {
       service: 'pokemon/?offset=0&limit=100000'
     }    
@@ -77,7 +74,6 @@ export class HomeComponent implements OnInit {
       this.pokemons = this.filterBy('name', this.pokemons);
       this.getThree(0, 3);
       this.backUpPokemons = this.filterBy('name', this.pokemons);
-      console.log(this.pokemons);
       this.autocompleteSearch(this.pokemons);  
     },
     error => {
@@ -148,6 +144,8 @@ export class HomeComponent implements OnInit {
     });
 
   }
+
+  //EFECCT SLIDE
     
 
   slideEffect(){
@@ -244,6 +242,8 @@ export class HomeComponent implements OnInit {
 
   }
 
+  //GET INFO of pokemons
+
   getThree(i, amount){
 
     let c = parseInt(i) + amount;
@@ -270,6 +270,8 @@ export class HomeComponent implements OnInit {
 
   }
 
+  //Order array pokemons
+
   filterBy(prop: string, array: any[]) {
     return array.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
   }
@@ -279,7 +281,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  
+  //INFORMATION OF POKEMONS
 
 
   getCharacteristic(id){
@@ -325,7 +327,6 @@ export class HomeComponent implements OnInit {
       service: 'ability/' + id
     }
     this.httpService.api(data).subscribe((result: any) => {
-        console.log('ablyti', result)
         this.generation = result.generation.name;
         this.effect = result.effect_entries[0].effect;
     },
@@ -393,7 +394,6 @@ export class HomeComponent implements OnInit {
       service: 'type/'
     }
     this.httpService.api(data).subscribe((result: any) => {
-      console.log(result)
         this.typesPokemon = result.results;
     },
       error => {
@@ -423,12 +423,13 @@ export class HomeComponent implements OnInit {
   selectType(name){
 
     if(name === 'All'){
-      console.log('backuo', this.backUpPokemons);
+
       this.pokemons = this.backUpPokemons;
       this.modal = false;
       this.resetPokemons();
       this.autocompleteSearch(this.pokemons);
-      console.log('pokemons', this.pokemons);      
+      this.verifyFavorite('abomasnow');
+
 
     }else{
       this.resetPokemons();
@@ -462,9 +463,11 @@ export class HomeComponent implements OnInit {
     });
     setTimeout(function(){
       self.verifyFavorite('abomasnow');
-    }, 2000);
+    }, 3000);
   }
-   verifyFavorite(name){    
+
+
+  verifyFavorite(name){    
     this.currentFavorite = 2;    
     this.favorites.forEach(e => {
       

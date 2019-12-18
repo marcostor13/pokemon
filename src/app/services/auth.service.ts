@@ -2,7 +2,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
 import { auth } from 'firebase/app';
 import { map } from 'rxjs/operators';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -10,10 +10,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 })
 export class AuthService {
 
-  // userCollection: AngularFirestoreCollection<User>;
-
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
-    // this.users = this.afs.collection('users').valueChanges();
   }
 
 
