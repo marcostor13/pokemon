@@ -9,6 +9,11 @@ body, html{
 //NAV
 
 nav{
+    .navFav{
+      color: #0F3A83;
+      font-size: 11pt;
+    }
+
     margin-top: 250px;
     position: relative;
     input{
@@ -57,6 +62,10 @@ nav{
     
 
 //POKEMON
+
+.opacityFavorite{  
+  opacity: .4 !important;
+}
 
 #container{
     position: relative;
@@ -158,6 +167,14 @@ nav{
     animation-duration: 500ms;
 }
 
+.width{
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+    animation-direction: normal;
+    animation-name: width;
+    animation-duration: 200ms;
+}
+
 @keyframes opacity {
   0% {
     opacity: 0;
@@ -203,5 +220,17 @@ nav{
   }
   100% {
     left: 0;    
+  }
+}
+
+@keyframes width {
+  0%{
+    width: 24px;
+  }
+  50%{
+    width: 40px;
+  }
+  100% {
+    width: 24px;
   }
 }

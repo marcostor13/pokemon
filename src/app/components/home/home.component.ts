@@ -1,6 +1,9 @@
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './../../services/auth.service';
 import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,13 +13,7 @@ import * as $ from 'jquery';
 export class HomeComponent implements OnInit {
 
 
-  constructor(private httpService: HttpService) { }
-
-  ngOnInit() {    
-    this.getPokemons();   
-    this.slideEffect();     
-    this.getTypesPokemon();
-  }
+  constructor(private httpService: HttpService, private authService: AuthService, private router: Router, private cookie: CookieService) { } 
 
   public pokemons = [];
   public backUpPokemons = [];
@@ -31,8 +28,45 @@ export class HomeComponent implements OnInit {
   public types = [];
   public typesPokemon;
   public modal: boolean = false;
+  public isLogged: boolean = false;
+  public favorites:any = [];
+  public currentFavorite: any = 2; 
+
+  ngOnInit() {
+    this.getPokemons();
+    this.slideEffect();
+    this.getTypesPokemon();
+    this.getCurrentUser();
+    this.getFavorites();
+  }
+
+  //AUTH
+
+  onLogout() {
+    this.authService.logoutUser()
+      .then(() => {
+        this.router.navigate(['login']);
+      }).catch(err => console.log('err', err.message));
+  }
+
+  getCurrentUser() {
+    this.authService.isAuth().subscribe(auth => {
+      if (auth) {
+        this.isLogged = true;
+        this.router.navigate(['/']);
+      } else {
+        this.isLogged = false;
+        this.router.navigate(['login']);
+      }
+    });
+  }
+
+
+  //POKEMONS
 
   getPokemons(){
+
+    console.log('iniciado');
 
     let data = {
       service: 'pokemon/?offset=0&limit=100000'
@@ -157,6 +191,16 @@ export class HomeComponent implements OnInit {
         let amountDivs = el.parent().children().length;
         self.getThree(amountDivs - 1, 3);
       }
+
+      //Event click star (favorites)
+      if(e.target.alt == 'star'){
+        $('#imageFavorite').removeClass('width');
+        $('#imageFavorite').addClass('width');
+        if(self.currentFavorite == 2){
+          self.saveFavorites($(e.target).parent().attr('id'));
+        }
+      }
+
     }
 
     function left(e){
@@ -170,7 +214,8 @@ export class HomeComponent implements OnInit {
         el.next().removeClass('left');
         el.next().removeClass('right');
         el.next().addClass('centerRight'); 
-        self.informationPokemon = false;
+        self.informationPokemon = false;   
+        self.verifyFavorite(el.next().children('h4').text());     
       }
     }
 
@@ -186,6 +231,7 @@ export class HomeComponent implements OnInit {
         el.prev().removeClass('left');
         el.prev().addClass('centerLeft');
         self.informationPokemon = false;
+        self.verifyFavorite(el.prev().children('h4').text());
       }
 
     }
@@ -392,6 +438,44 @@ export class HomeComponent implements OnInit {
     }
     
   }
+
+
+  //FAVORITES
+
+  saveFavorites(namePokemon){
+    if (this.currentFavorite == 2){
+      this.currentFavorite = this.authService.saveFavorites({
+        favorite: namePokemon,
+        email: JSON.parse(this.cookie.get('ui')).email
+      });
+    }
+  }
+
+  getFavorites(){
+    let self = this;
+    this.authService.getFavorites({
+      email: JSON.parse(this.cookie.get('ui')).email
+    }).subscribe(favorites => {
+      favorites.forEach((e:any) => {
+        this.favorites.push(e.favorite);
+      });
+    });
+    setTimeout(function(){
+      self.verifyFavorite('abomasnow');
+    }, 2000);
+  }
+   verifyFavorite(name){    
+    this.currentFavorite = 2;    
+    this.favorites.forEach(e => {
+      
+      if(e == name){
+        this.currentFavorite = 1;         
+      }
+    });
+  }
+
+
+  
 
  
 

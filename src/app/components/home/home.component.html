@@ -1,6 +1,6 @@
 <header class="p-3 d-flex justify-content-between align-items-center">
     <img src="https://assets.pokemon.com/assets/cms2/img/misc/gus/buttons/logo-pokemon-79x45.png" alt="Pokemon">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 172 172"
+    <svg (click)="onLogout()" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 172 172"
         style=" fill:#000000;">
         <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
             stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
@@ -18,6 +18,7 @@
 <div id="container">
     <ng-container *ngFor="let pokemon of pokemons" >
         <div [class.left]="pokemon.left" [class.right]="pokemon.right" [class.centerLeft]="pokemon.center" *ngIf="pokemon.info" class="divPokemon d-flex justify-content-center flex-column align-items-center p-5">
+            <i id="{{pokemon.info.name}}"><img id="imageFavorite" [class.opacityFavorite]="currentFavorite == 2" width="24" src="https://img.icons8.com/flat_round/64/000000/star--v1.png" alt="star"></i>
             <img src="{{pokemon.info.sprites.front_default}}" alt="{{pokemon.info.name}}">    
             <h4 *ngIf="pokemon.info" class="text-capitalize">{{pokemon.name}}</h4>
             <ul class="list-unstyled d-flex justify-content-between align-items-center">
@@ -28,7 +29,7 @@
 </div>
 
 <nav class="p-3 d-flex align-items-center justify-content-between">
-    <input id="search" type="search" class="form-control col-8" placeholder="Busque por nombre">
+    <input id="search" type="search" class="form-control col-8" placeholder="Search by name">
     <div id="searchResults"></div>
     <button (click)="openModal();" class="col-4 ml-2">Type</button>
 </nav>
