@@ -22,7 +22,7 @@
     "@angular/router": "~8.2.14",
     "core-js": "^2.6.11",
     "firebase": "^7.6.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ngx-cookie-service": "^2.2.0",
     "rxjs": "^6.4.0",
     "save": "^2.4.0",
